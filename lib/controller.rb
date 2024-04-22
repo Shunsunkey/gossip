@@ -1,4 +1,9 @@
-require_relative 'gossip'
+require 'bundler'
+Bundler.require
+
+$:.unshift File.expand_path("./../lib", __FILE__)
+require 'controller'
+require 'gossip'
 
 class ApplicationController < Sinatra::Base
   get '/' do
@@ -10,12 +15,31 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/gossips/new/' do
-    author = params["gossip_author"]
-    content = params["gossip_content"]
-    gossip = Gossip.new(author, content)
-    gossip.save
+    Gossip.new(params["gossip_author"], params["gossip_content"]).save
     redirect '/'
   end
+<<<<<<< HEAD
+  
+  get '/gossips/:id' do
+    id = params['id'].to_i
+    @gossip = Gossip.find(id)
+    erb :show
+  end
+  
+  get '/gossips/:id/edit/' do
+    id = params['id'].to_i
+    @gossip = Gossip.find(id)
+    erb :edit
+  end
+  
+  post '/gossips/:id/edit/' do
+    id = params['id'].to_i
+    gossip = Gossip.find(id)
+    gossip.update(params['gossip_author'], params['gossip_content'])
+    redirect '/'
+  end  
+  
+=======
 
   get '/gossips/:id/' do
     @gossip = Gossip.find(params['id'].to_i)
@@ -32,4 +56,5 @@ class ApplicationController < Sinatra::Base
     @gossip.save
     redirect "/gossips/#{params['id']}"
   end
+>>>>>>> acef093249f7bee6d23631a7632be78c7410215a
 end

@@ -1,13 +1,18 @@
+
 <html>
 <head>
-  <title>Page du potin</title>
+  <title>Vision Potin</title>
 </head>
 <body>
-  <h1>PAGE POTIN</h1>
-  <p>Voici la page du potin n°<%= @gossip.id %></p>
+  <h1>Page du potin n°<%= @gossip.id %></h1>
   <p>Son auteur : <%= @gossip.author %></p>
   <p>Le contenu du potin : <%= @gossip.content %></p>
+<<<<<<< HEAD
+  <a href="/">Retour à la page des potins</a>
+  <p><a href="/gossips/<%= @gossip.id %>/edit/">Éditer le potin</a></p>
+=======
   <a href="/">Lien pour revenir à la page des potins</a>
   <a href="/gossips/<%= @gossip.id %>/edit">Éditer le potin</a>
+>>>>>>> acef093249f7bee6d23631a7632be78c7410215a
 </body>
 </html>

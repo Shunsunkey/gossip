@@ -1,17 +1,22 @@
 <html>
-    <head>
-        <title>The Gossip Project</title>
-    </head>
-    <body>
-    <h1>Mon super site de gossip, depuis le dossier views !</h1>
-    <h2>La liste des potins.</h2>
+  <head>
+    <title>The Gossip Project</title>
+  </head>
+  <body>
+    <h1>Mon super site depuis le dossier views !</h1>
+    <p>Voici la lise des potins !</p>
     <% gossips.each_with_index do |gossip, index| %>
         <div>
+<<<<<<< HEAD
+          <p><%= gossip.author %> - <%= gossip.content %></p>
+          <p><a href="/gossips/<%= index + 1 %>">Voir détails</a></p>
+=======
             <p><%= "#{gossip.author} - #{gossip.content}" %></p>
             <!-- Ajout du lien vers la page show du potin -->
             <p><a href="/gossips/<%= index + 1 %>">Voir le potin</a></p>
+>>>>>>> acef093249f7bee6d23631a7632be78c7410215a
         </div>
-    <% end %>
-    <p>En attendant, <a href="/gossips/new/">crée un nouveau potin</a>.</p>
-</body>
+      <% end %>      
+    <a href="/gossips/new/">créer un nouveau gossip</a>
+  </body>
 </html>

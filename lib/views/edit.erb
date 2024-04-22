@@ -4,6 +4,15 @@
 </head>
 <body>
     <h1>Édition du potin</h1>
+<<<<<<< HEAD
+    <form action="/gossips/<%= @gossip.id %>/update/" method="POST">
+    Nom à modifier: <input type="text" name="gossip_author" value="<%= @gossip.author %>"/><br/>
+    Contenu à modifier: <input type="text" name="gossip_content" value="<%= @gossip.content %>"/><br/>
+    <input type="submit" value="Enregistrer les modifications">
+</form>
+
+
+=======
     <form action="/gossips/<%= @gossip.id %>/edit" method="post">
         <label for="author">Auteur:</label>
         <input type="text" id="author" name="author" value="<%= @gossip.author %>"><br>
@@ -11,5 +20,6 @@
         <textarea id="content" name="content"><%= @gossip.content %></textarea><br>
         <input type="submit" value="Enregistrer les modifications">
     </form>
+>>>>>>> acef093249f7bee6d23631a7632be78c7410215a
 </body>
 </html>

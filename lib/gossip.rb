@@ -1,47 +1,51 @@
 require 'csv'
 
 class Gossip
-  attr_accessor :author, :content, :id
+  attr_accessor :id, :author, :content
 
   def initialize(author, content)
+    @id = generate_unique_id
     @author = author
     @content = content
-    @id = generate_id
   end
 
   def save
-    FileUtils.mkdir_p("db") unless File.directory?("db")
-    csv_path = "db/gossip.csv"
-    CSV.open(csv_path, "a") do |csv|
-      csv << [@id, author, content]
+    CSV.open(File.join(File.dirname(__FILE__), "../db/gossip.csv"), "ab") do |csv|
+      csv << [id, author, content]
     end
   end
 
   def self.all
     all_gossips = []
-    CSV.foreach("db/gossip.csv") do |csv_line|
-      all_gossips << Gossip.new(csv_line[1], csv_line[2])
+    CSV.foreach(File.join(File.dirname(__FILE__), "../db/gossip.csv")) do |row|
+      gossip = Gossip.new(row[0], row[1])
+      all_gossips << gossip
     end
-    return all_gossips
+    all_gossips
   end
 
   def self.find(id)
-    all_gossips = self.all
-    all_gossips.each do |gossip|
-      return gossip if gossip.id == id.to_i
+    gossip_found = nil
+    CSV.foreach(File.join(File.dirname(__FILE__), "../db/gossip.csv")) do |row|
+      if row[0].to_i == id
+        gossip_found = Gossip.new(row[1], row[2])
+        break # Sort de la boucle une fois que le gossip est trouvé
+      end
     end
-    return nil
+    gossip_found
   end
 
   private
 
-  def generate_id
-    # Récupérer tous les IDs existants dans le fichier CSV
-    existing_ids = CSV.read("db/gossip.csv").map { |csv_line| csv_line[0].to_i }
-    # Trouver le plus grand ID
-    max_id = existing_ids.max || 0
-    # Incrémenter le plus grand ID pour obtenir un nouvel ID unique
-    new_id = max_id + 1
-    return new_id
+  def generate_unique_id
+    # Chargement des IDs existants à partir du fichier CSV
+    existing_ids = []
+    CSV.foreach(File.join(File.dirname(__FILE__), "../db/gossip.csv")) do |row|
+      existing_ids << row[0].to_i
+    end
+
+    # Trouver le prochain ID unique en incrémentant le maximum d'IDs existants
+    next_id = existing_ids.empty? ? 1 : existing_ids.max + 1
+    next_id
   end
 end
