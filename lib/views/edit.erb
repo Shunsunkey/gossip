@@ -1,0 +1,15 @@
+<html>
+<head>
+    <title>Édition du potin</title>
+</head>
+<body>
+    <h1>Édition du potin</h1>
+    <form action="/gossips/<%= @gossip.id %>/edit" method="post">
+        <label for="author">Auteur:</label>
+        <input type="text" id="author" name="author" value="<%= @gossip.author %>"><br>
+        <label for="content">Contenu:</label>
+        <textarea id="content" name="content"><%= @gossip.content %></textarea><br>
+        <input type="submit" value="Enregistrer les modifications">
+    </form>
+</body>
+</html>

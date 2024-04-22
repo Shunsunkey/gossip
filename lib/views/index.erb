@@ -7,7 +7,7 @@
     <h2>La liste des potins.</h2>
     <% gossips.each_with_index do |gossip, index| %>
         <div>
-            <p><%= "#{gossip.author} - #{gossip.content}"%></p>
+            <p><%= "#{gossip.author} - #{gossip.content}" %></p>
             <!-- Ajout du lien vers la page show du potin -->
             <p><a href="/gossips/<%= index + 1 %>">Voir le potin</a></p>
         </div>
